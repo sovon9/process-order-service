@@ -27,12 +27,27 @@ public class QueryBuilderUtil {
                 for(Map.Entry<String, Object> nestedEntry : nestedOrder.entrySet()) {
                      String nestedField = field + "." + nestedEntry.getKey();
                      String directionStr = String.valueOf(nestedEntry.getValue());
-                     Sort.Direction direction = "DESC".equalsIgnoreCase(directionStr) ? Sort.Direction.DESC : Sort.Direction.ASC;
+
+                    // When backward pagination is requested, defaultDirection is DESC.
+                    // We need to invert the user's requested sort to fetch from the end.
+                    Sort.Direction direction;
+                    if (defaultDirection == Sort.Direction.DESC) {
+                        direction = "DESC".equalsIgnoreCase(directionStr) ? Sort.Direction.ASC : Sort.Direction.DESC;
+                    } else {
+                        direction = "DESC".equalsIgnoreCase(directionStr) ? Sort.Direction.DESC : Sort.Direction.ASC;
+                    }
+
                      orders.add(new Sort.Order(direction, nestedField));
                 }
             } else {
                 String directionStr = String.valueOf(value);
-                Sort.Direction direction = "DESC".equalsIgnoreCase(directionStr) ? Sort.Direction.DESC : Sort.Direction.ASC;
+                // Inverse logic for backward pagination
+                Sort.Direction direction;
+                if (defaultDirection == Sort.Direction.DESC) {
+                    direction = "DESC".equalsIgnoreCase(directionStr) ? Sort.Direction.ASC : Sort.Direction.DESC;
+                } else {
+                    direction = "DESC".equalsIgnoreCase(directionStr) ? Sort.Direction.DESC : Sort.Direction.ASC;
+                }
                 orders.add(new Sort.Order(direction, field));
             }
         }

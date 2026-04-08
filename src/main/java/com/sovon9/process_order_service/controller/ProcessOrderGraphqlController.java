@@ -30,6 +30,14 @@ public class ProcessOrderGraphqlController {
     {
         ScrollPosition position = subrange.position().orElse(ScrollPosition.offset());
         int limit = subrange.count().orElse(10);
+
+        // When scrolling backwards (using 'last' or 'before'), subrange.forward() is false.
+        // We must reverse the sort direction to query the database correctly for backwards pagination.
+        Sort.Direction direction = Sort.Direction.ASC;
+        if (!subrange.forward()) {
+            direction = Sort.Direction.DESC;
+        }
+
         Sort sort = QueryBuilderUtil.buildSort(order,"processOrderId", Sort.Direction.ASC);
 
         Specification<ProcessOrder> spec = QueryBuilderUtil.buildSpecification(where);
