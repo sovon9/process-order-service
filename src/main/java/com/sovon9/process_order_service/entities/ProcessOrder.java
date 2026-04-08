@@ -39,7 +39,7 @@ public class ProcessOrder {
     }
 
     public void setId(String id) {
-        this.id = GlobalUtil.toGlobalId("ProcessOrder",processOrderId);
+        this.id = id;
     }
 
     public Long getProcessOrderId() {
@@ -88,5 +88,11 @@ public class ProcessOrder {
 
     public void setProductionUnit(ProductionUnit productionUnit) {
         this.productionUnit = productionUnit;
+    }
+
+    @PostLoad
+    public void postLoad()
+    {
+        this.id=GlobalUtil.toGlobalId("ProcessOrder", processOrderId);
     }
 }

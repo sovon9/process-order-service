@@ -41,32 +41,4 @@ public class ProcessOrderGraphqlController {
         return repository.findBy(spec, q->q.limit(limit).sortBy(sort).scroll(position));
     }
 
-
-    private Sort.Order toSortOrder(String field, Object direction, boolean forward) {
-
-        Sort.Order order;
-        if(direction.equals("ASC"))
-        {
-            if(forward)
-            {
-                order = Sort.Order.asc(field);
-            }
-            else
-            {
-                order = Sort.Order.desc(field);
-            }
-        }
-        else
-        {
-            if(forward) {
-                order = Sort.Order.desc(field);
-            }
-            else
-            {
-                order = Sort.Order.asc(field);
-            }
-        }
-
-        return order;
-    }
 }

@@ -44,6 +44,7 @@ input FilterProcessOrder
 input ProcessOrderOrder
 {
     id: SortDirection
+    processOrderId: SortDirection
     orderNo: SortDirection
     productId: SortDirection
     productionUnitId: SortDirection
