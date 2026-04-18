@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
 @Controller
 public class ProcessOrderGraphqlController {
 
-    private ProcessOrderRepository repository;
+    private final ProcessOrderRepository repository;
     public ProcessOrderGraphqlController(ProcessOrderRepository repository) {
         this.repository = repository;
     }
