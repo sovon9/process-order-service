@@ -1,6 +1,11 @@
+directive @lookup on FIELD_DEFINITION
+directive @internal on FIELD_DEFINITION
+directive @sharable on INTERFACE | OBJECT | FIELD_DEFINITION
+
 type Query
 {
     processOrders(where: FilterProcessOrder, first: Int, after: String, last: Int, order: ProcessOrderOrder): ProcessOrderConnection
+    processOrderById(processOrderId: [Float!]): [ProcessOrder] @lookup @internal
 }
 
 type ProcessOrderConnection
@@ -21,7 +26,9 @@ type ProcessOrder implements Node
     processOrderId: ID
     orderNo: String
     productId: Float
+    product: Product
     productionUnitId: Float
+    productionUnit: ProductionUnit
 }
 
 type PageInfo {
@@ -59,4 +66,13 @@ enum SortDirection
 interface Node
 {
     id: ID!
+}
+
+type Product
+{
+    productId: Float @lookup
+}
+type ProductionUnit
+{
+    productionUnitId: Float @lookup
 }

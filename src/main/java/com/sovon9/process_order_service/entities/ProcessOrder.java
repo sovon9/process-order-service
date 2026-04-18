@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "process_order")
-public class ProcessOrder {
+public class ProcessOrder implements Node{
 
     @Transient
     private String id;
