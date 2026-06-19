@@ -28,7 +28,7 @@ type ProcessOrder implements Node
     productId: Float
     product: Product
     productionUnitId: Float
-    productionUnit: ProductionUnit
+    productionUnit: ProductionUnit @lookup
 }
 
 type PageInfo {
@@ -74,5 +74,5 @@ type Product
 }
 type ProductionUnit
 {
-    productionUnitId: Float @lookup
+    productionUnitId: Float
 }

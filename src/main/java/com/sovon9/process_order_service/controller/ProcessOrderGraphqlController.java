@@ -16,6 +16,7 @@ import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.graphql.data.query.ScrollSubrange;
 import org.springframework.stereotype.Controller;
 
+import javax.annotation.processing.Processor;
 import javax.swing.text.html.Option;
 import java.util.ArrayList;
 import java.util.List;
@@ -68,6 +69,12 @@ public class ProcessOrderGraphqlController {
     {
         return processOrders.stream().map(po->po.getProductionUnitId()==null ? Optional.<ProductionUnit>empty()
                 : Optional.of(new ProductionUnit(po.getProductionUnitId()))).collect(Collectors.toList());
+    }
+
+    @QueryMapping("processOrderById")
+    public List<ProcessOrder> processOrderById(@Argument List<Long> processOrderId)
+    {
+        return repository.findAllById(processOrderId);
     }
 
 }

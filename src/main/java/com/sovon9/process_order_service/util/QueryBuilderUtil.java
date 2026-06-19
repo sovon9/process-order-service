@@ -2,6 +2,7 @@ package com.sovon9.process_order_service.util;
 
 import com.sovon9.process_order_service.entities.ProcessOrder;
 import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Root;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 
@@ -55,7 +56,7 @@ public class QueryBuilderUtil {
         return Sort.by(orders);
     }
 
-    public static Specification<ProcessOrder> buildSpecification(Map<String, Object> filter) {
+    public static <T> Specification<T> buildSpecification(Map<String, Object> filter) {
         if (filter == null || filter.isEmpty()) {
             return null;
         }
@@ -72,7 +73,7 @@ public class QueryBuilderUtil {
     }
 
     @SuppressWarnings("unchecked")
-    private static List<Predicate> buildPredicates(Map<String, Object> filter, jakarta.persistence.criteria.Root<ProcessOrder> root, jakarta.persistence.criteria.CriteriaBuilder cb) {
+    private static List<Predicate> buildPredicates(Map<String, Object> filter, Root<?> root, jakarta.persistence.criteria.CriteriaBuilder cb) {
         List<Predicate> predicates = new ArrayList<>();
 
         for (Map.Entry<String, Object> entry : filter.entrySet()) {
